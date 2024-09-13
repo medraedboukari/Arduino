@@ -1,0 +1,62 @@
+// Pins for motor control
+const int in1 = 5;
+const int in2 = 6;
+const int in3 = 9;
+const int in4 = 10;
+const int vitesse=70;
+void setup() {
+  // Set motor control pins as output
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+   analogWrite(in1,vitesse);
+      analogWrite(in2,vitesse);
+      analogWrite(in3,vitesse);
+      analogWrite(in4,vitesse);
+  // Start Serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available()) {
+    char command = Serial.read();
+
+    // Forward
+    if (command == 'F') {
+     
+      digitalWrite(in1, HIGH);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, HIGH);
+      digitalWrite(in4, LOW);
+    }
+    // Backward
+    else if (command == 'B') {
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, HIGH);
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, HIGH);
+    }
+    // Left
+    else if (command == 'L') {
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, HIGH);
+      digitalWrite(in3, HIGH);
+      digitalWrite(in4, LOW);
+    }
+    // Right
+    else if (command == 'R') {
+      digitalWrite(in1, HIGH);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, HIGH);
+    }
+    // Stop
+    else if (command == 'S') {
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, LOW);
+    }
+  }
+}
